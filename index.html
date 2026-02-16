@@ -1,630 +1,399 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Makers Community - Social Platform</title>
+    <title>Makers Community</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* SIMPLE STYLES THAT WORK ON GITHUB */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --primary: #5865F2;
-            --secondary: #57F287;
-            --accent: #EB459E;
-            --dark: #2C2F33;
-            --darker: #23272A;
-            --light: #FFFFFF;
-            --gray: #99AAB5;
-            --success: #57F287;
-            --warning: #FEE75C;
-            --danger: #ED4245;
+            font-family: Arial, sans-serif;
         }
         
         body {
-            background: var(--darker);
-            color: var(--light);
-            min-height: 100vh;
-        }
-        
-        /* Header */
-        .header {
-            background: var(--dark);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        
-        .logo-text h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, var(--light), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .notification-badge {
-            background: var(--danger);
+            background: #1a1a1a;
             color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            position: absolute;
-            top: -5px;
-            right: -5px;
-        }
-        
-        /* Main Layout */
-        .main-container {
-            display: flex;
-            height: calc(100vh - 80px);
-        }
-        
-        /* Sidebar - Groups/Channels */
-        .sidebar {
-            width: 250px;
-            background: var(--dark);
-            border-right: 2px solid rgba(255,255,255,0.1);
             padding: 20px;
-            overflow-y: auto;
         }
         
-        .sidebar-section {
-            margin-bottom: 25px;
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #5865F2;
         }
         
-        .sidebar-title {
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-transform: uppercase;
+        .header h1 {
+            color: #5865F2;
             margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         
-        .add-btn {
-            background: var(--success);
-            color: black;
-            border: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
         }
         
-        .group-list, .channel-list {
+        .sidebar {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: #57F287;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #57F287;
+            padding-bottom: 5px;
+        }
+        
+        .channel-list {
             list-style: none;
         }
         
-        .group-item, .channel-item {
-            padding: 10px 15px;
+        .channel-item {
+            padding: 10px;
             margin: 5px 0;
-            border-radius: 8px;
+            background: #333;
+            border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
-        .group-item:hover, .channel-item:hover {
-            background: rgba(255,255,255,0.1);
+        .channel-item:hover {
+            background: #444;
         }
         
-        .group-item.active, .channel-item.active {
-            background: var(--primary);
+        .channel-item.active {
+            background: #5865F2;
         }
         
-        .group-icon, .channel-icon {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Main Content - Posts/Messages */
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .channel-header {
-            background: var(--dark);
-            padding: 15px 25px;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .channel-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        
-        .channel-desc {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        /* Posts/Messages Container */
-        .messages-container {
-            flex: 1;
+        .chat-area {
+            background: #2a2a2a;
             padding: 20px;
+            border-radius: 10px;
+            min-height: 500px;
+        }
+        
+        .messages {
+            min-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
-            background: var(--darker);
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 5px;
         }
         
         .message {
-            background: var(--dark);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary);
+            background: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #5865F2;
         }
         
         .message-header {
             display: flex;
-            align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 5px;
+            color: #57F287;
             font-weight: bold;
-        }
-        
-        .message-author {
-            font-weight: bold;
-            color: var(--light);
         }
         
         .message-time {
-            color: var(--gray);
+            color: #888;
             font-size: 0.8rem;
         }
         
-        .message-content {
-            margin-left: 50px;
-            line-height: 1.5;
-        }
-        
-        .message-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            margin-left: 50px;
-        }
-        
-        .action-btn {
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .action-btn:hover {
-            color: var(--light);
-        }
-        
-        .replies {
-            margin-left: 50px;
-            margin-top: 15px;
-            border-left: 2px solid var(--primary);
-            padding-left: 15px;
-        }
-        
-        /* Message Input */
-        .message-input-container {
-            background: var(--dark);
-            padding: 20px;
-            border-top: 2px solid rgba(255,255,255,0.1);
-        }
-        
-        .input-toolbar {
+        .input-area {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
         }
         
-        .tool-btn {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: var(--light);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: 0.3s;
+        textarea {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #444;
+            background: #1a1a1a;
+            color: white;
+            resize: vertical;
+            min-height: 60px;
         }
         
-        .tool-btn:hover {
-            background: var(--primary);
-        }
-        
-        .message-input {
-            width: 100%;
-            background: var(--darker);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 15px;
-            color: var(--light);
-            font-size: 1rem;
-            resize: none;
-            min-height: 80px;
-            font-family: inherit;
-        }
-        
-        .message-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .send-btn {
-            background: var(--primary);
+        button {
+            background: #5865F2;
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
-            float: right;
-            transition: 0.3s;
+            font-weight: bold;
         }
         
-        .send-btn:hover {
+        button:hover {
             background: #4752C4;
         }
         
-        /* File Upload Preview */
-        .file-preview {
-            background: var(--darker);
-            border-radius: 8px;
-            padding: 10px;
+        .file-btn {
+            background: #57F287;
+            color: black;
+        }
+        
+        .gif-btn {
+            background: #EB459E;
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 10px;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
-        .file-icon {
-            font-size: 2rem;
-        }
-        
-        .file-info {
-            flex: 1;
-        }
-        
-        .file-name {
-            font-weight: bold;
-        }
-        
-        .file-size {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .remove-file {
-            background: var(--danger);
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        
-        /* GIF Picker */
-        .gif-picker {
-            position: absolute;
-            bottom: 120px;
-            background: var(--dark);
-            border-radius: 10px;
-            padding: 15px;
-            width: 300px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: none;
-        }
-        
-        .gif-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .gif-item {
-            width: 100%;
-            height: 80px;
-            background: var(--darker);
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-        
-        .gif-item:hover {
-            background: var(--primary);
-        }
-        
-        /* Online Users */
-        .online-users {
-            width: 250px;
-            background: var(--dark);
-            border-left: 2px solid rgba(255,255,255,0.1);
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .user-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-        
-        .user-item:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .user-status {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--success);
-        }
-        
-        .user-status.online { background: var(--success); }
-        .user-status.idle { background: var(--warning); }
-        .user-status.dnd { background: var(--danger); }
-        .user-status.offline { background: var(--gray); }
-        
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .online-users {
-                display: none;
-            }
+        .reply {
+            margin-left: 30px;
+            background: #2a2a2a;
+            border-left-color: #57F287;
         }
         
         @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
+            .container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <div class="header">
-        <div class="logo">
-            <div class="logo-icon">M</div>
-            <div class="logo-text">
-                <h1>Makers Community</h1>
-                <p>Social Platform for Creators</p>
-            </div>
-        </div>
-        
-        <div class="user-info">
-            <div style="position: relative;">
-                <div class="user-avatar">Y</div>
-                <div class="notification-badge">3</div>
-            </div>
-            <div>
-                <div style="font-weight: bold;">You</div>
-                <div style="color: var(--success); font-size: 0.9rem;">● Online</div>
-            </div>
-        </div>
+        <h1>👥 MAKERS COMMUNITY</h1>
+        <p>Social platform for the community | GitHub Pages Ready</p>
     </div>
     
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar - Groups/Channels -->
+    <div class="container">
+        <!-- Sidebar -->
         <div class="sidebar">
-            <div class="sidebar-section">
-                <div class="sidebar-title">
-                    GROUPS
-                    <button class="add-btn" onclick="createGroup()">+</button>
-                </div>
-                <ul class="group-list" id="groupList">
-                    <!-- Groups load here -->
-                </ul>
+            <h3>📁 CHANNELS</h3>
+            <ul class="channel-list" id="channelList">
+                <li class="channel-item active" onclick="switchChannel('general')"># general</li>
+                <li class="channel-item" onclick="switchChannel('memes')"># memes</li>
+                <li class="channel-item" onclick="switchChannel('help')"># help</li>
+                <li class="channel-item" onclick="switchChannel('showcase')"># showcase</li>
+                <li class="channel-item" onclick="switchChannel('offtopic')"># off-topic</li>
+            </ul>
+            
+            <h3 style="margin-top: 30px;">👤 ONLINE (3)</h3>
+            <div style="padding: 10px; background: #333; border-radius: 5px; margin-top: 10px;">
+                <div>● You (Owner)</div>
+                <div>● Member1</div>
+                <div>● Member2</div>
             </div>
             
-            <div class="sidebar-section">
-                <div class="sidebar-title">
-                    CHANNELS
-                    <button class="add-btn" onclick="createChannel()">+</button>
-                </div>
-                <ul class="channel-list" id="channelList">
-                    <!-- Channels load here -->
-                </ul>
-            </div>
-            
-            <div class="sidebar-section">
-                <div class="sidebar-title">
-                    DIRECT MESSAGES
-                </div>
-                <ul class="group-list" id="dmList">
-                    <!-- DMs load here -->
-                </ul>
-            </div>
+            <button onclick="createChannel()" style="width: 100%; margin-top: 20px;">+ New Channel</button>
         </div>
         
-        <!-- Main Content -->
-        <div class="content">
-            <!-- Channel Header -->
-            <div class="channel-header">
-                <div class="channel-icon" style="background: var(--primary);">#</div>
-                <div>
-                    <div class="channel-name" id="currentChannel">general</div>
-                    <div class="channel-desc" id="channelDesc">Welcome to the main community channel</div>
-                </div>
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="toolbar">
+                <button class="file-btn" onclick="uploadFile()">📎 Upload File</button>
+                <button class="gif-btn" onclick="sendGif()">🎬 Send GIF</button>
+                <button onclick="addEmoji()">😀 Emoji</button>
             </div>
             
-            <!-- Messages/Posts Container -->
-            <div class="messages-container" id="messagesContainer">
+            <div class="messages" id="messages">
                 <!-- Messages load here -->
+                <div class="message">
+                    <div class="message-header">
+                        <span>👑 You</span>
+                        <span class="message-time">Just now</span>
+                    </div>
+                    <div>Welcome to Makers Community! Start chatting...</div>
+                    <button onclick="replyTo(this)" style="background: #444; padding: 5px 10px; font-size: 0.8rem; margin-top: 5px;">Reply</button>
+                </div>
             </div>
             
-            <!-- Message Input -->
-            <div class="message-input-container">
-                <!-- File Preview -->
-                <div id="filePreview" style="display: none;"></div>
-                
-                <!-- GIF Picker -->
-                <div class="gif-picker" id="gifPicker">
-                    <div style="margin-bottom: 10px; font-weight: bold;">Select GIF</div>
-                    <div class="gif-grid" id="gifGrid">
-                        <!-- GIFs load here -->
-                    </div>
-                </div>
-                
-                <!-- Input Toolbar -->
-                <div class="input-toolbar">
-                    <button class="tool-btn" onclick="uploadFile()" title="Upload File">
-                        📎
-                    </button>
-                    <button class="tool-btn" onclick="showGifPicker()" title="Send GIF">
-                        🎬
-                    </button>
-                    <button class="tool-btn" onclick="addEmoji()" title="Add Emoji">
-                        😀
-                    </button>
-                    <button class="tool-btn" onclick="formatText('bold')" title="Bold">
-                        <b>B</b>
-                    </button>
-                    <button class="tool-btn" onclick="formatText('italic')" title="Italic">
-                        <i>I</i>
-                    </button>
-                    <button class="tool-btn" onclick="formatText('code')" title="Code">
-                        { }
-                    </button>
-                </div>
-                
-                <!-- Message Input -->
-                <textarea 
-                    class="message-input" 
-                    id="messageInput" 
-                    placeholder="Message #general"
-                    onkeydown="if(event.key === 'Enter' && !event.shiftKey) {event.preventDefault(); sendMessage();}"
-                ></textarea>
-                
-                <button class="send-btn" onclick="sendMessage()">
-                    Send Message
-                </button>
-                
-                <!-- Hidden File Input -->
-                <input type="file" id="fileUpload" style="display: none;" onchange="handleFileUpload(this.files)">
+            <div class="input-area">
+                <textarea id="messageInput" placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"></textarea>
+                <button onclick="sendMessage()">Send</button>
             </div>
-        </div>
-        
-        <!-- Online Users -->
-        <div class="online-users">
-            <div class="sidebar-title">
-                ONLINE — <span id="onlineCount">1</span>
-            </div>
-            <div id="onlineUsersList">
-                <!-- Online users load here -->
-            </div>
+            
+            <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
         </div>
     </div>
+
     <script>
-        // ====================
-        // DATA & STATE
-        // ====================
-        let currentUser = {
-            id: 1,
-            name: "You",
-            avatar: "Y",
-            status: "online"
+        // SIMPLE JAVASCRIPT THAT WORKS ON GITHUB
+        let currentChannel = 'general';
+        let messages = {
+            general: [
+                { user: 'You', text: 'Welcome to Makers Community! Start chatting...', time: 'Just now' }
+            ],
+            memes: [],
+            help: [],
+            showcase: [],
+            offtopic: []
         };
         
-        let groups = [
-            { id: 1, name: "Gaming", icon: "🎮", active: true },
-            { id: 2, name: "Development", icon: "💻" },
-            { id: 3, name: "Art & Design", icon: "🎨" },
-            { id: 4, name: "Music", icon: "🎵" },
-            { id: 5, name: "Anime", icon: "🌸" }
-        ];
+        function switchChannel(channel) {
+            currentChannel = channel;
+            
+            // Update active channel
+            document.querySelectorAll('.channel-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load messages
+            loadMessages();
+        }
         
-        let channels = [
-            { id: 1, name: "general", desc: "Welcome to the main community channel", groupId: 1, active: true },
-            { id: 2, name: "memes", desc: "Share funny memes and jokes", groupId: 1 },
-            { id: 3, name: "help", desc: "Get help with your projects", groupId: 2 },
-            { id: 4, name: "showcase", desc: "Show off your creations", groupId: 2 },
-            { id: 5, name: "off-topic", desc: "Talk
+        function loadMessages() {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            messages[currentChannel].forEach(msg => {
+                const msgHTML = `
+                    <div class="message">
+                        <div class="message-header">
+                            <span>${msg.user === 'You' ? '👑 You' : '👤 ' + msg.user}</span>
+                            <span class="message-time">${msg.time}</span>
+                        </div>
+                        <div>${msg.text}</div>
+                        <button onclick="replyTo(this)" style="background: #444; padding: 5px 10px; font-size: 0.8rem; margin-top: 5px;">Reply</button>
+                    </div>
+                `;
+                container.innerHTML += msgHTML;
+            });
+            
+            // Scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            // Add message
+            messages[currentChannel].push({
+                user: 'You',
+                text: text,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+            
+            // Clear input
+            input.value = '';
+            
+            // Reload messages
+            loadMessages();
+            
+            // Auto-reply (simulate other users)
+            setTimeout(() => {
+                const replies = [
+                    "Nice!",
+                    "I agree!",
+                    "Thanks for sharing!",
+                    "Cool!",
+                    "Let's discuss this more!"
+                ];
+                
+                const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                
+                messages[currentChannel].push({
+                    user: 'Member' + (Math.floor(Math.random() * 2) + 1),
+                    text: randomReply,
+                    time: 'Just now'
+                });
+                
+                loadMessages();
+            }, 1000);
+        }
+        
+        function replyTo(button) {
+            const messageDiv = button.parentElement;
+            const messageText = messageDiv.querySelector('div:nth-child(2)').textContent;
+            
+            document.getElementById('messageInput').value = `Replying to: "${messageText.substring(0, 50)}..." `;
+            document.getElementById('messageInput').focus();
+        }
+        
+        function uploadFile() {
+            document.getElementById('fileInput').click();
+        }
+        
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const fileName = file.name;
+            const fileSize = (file.size / 1024).toFixed(2) + ' KB';
+            
+            messages[currentChannel].push({
+                user: 'You',
+                text: `📎 Uploaded file: <strong>$${fileName}</strong> ($${fileSize})`,
+                time: 'Just now'
+            });
+            
+            loadMessages();
+            alert(`File "${fileName}" uploaded! (This is a demo - file not actually saved)`);
+        }
+        
+        function sendGif() {
+            const gifs = ['😂', '🎉', '🔥', '❤️', '👏', '🎮', '💻', '🎨'];
+            const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
+            
+            messages[currentChannel].push({
+                user: 'You',
+                text: `GIF: $${randomGif} $${randomGif} ${randomGif}`,
+                time: 'Just now'
+            });
+            
+            loadMessages();
+        }
+        
+        function addEmoji() {
+            const emojis = ['😀', '😂', '🤔', '👌', '🎮', '💯', '🚀', '❤️'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            const input = document.getElementById('messageInput');
+            input.value += randomEmoji;
+            input.focus();
+        }
+        
+        function createChannel() {
+            const channelName = prompt('Enter new channel name (without #):');
+            if (!channelName) return;
+            
+            // Add to sidebar
+            const channelList = document.getElementById('channelList');
+            const newChannel = document.createElement('li');
+            newChannel.className = 'channel-item';
+            newChannel.textContent = `# ${channelName}`;
+            newChannel.onclick = () => switchChannel(channelName.toLowerCase());
+            channelList.appendChild(newChannel);
+            
+            // Initialize messages array
+            messages[channelName.toLowerCase()] = [];
+            
+            alert(`Channel #${channelName} created!`);
+        }
+        
+        // Handle Enter key
+        document.getElementById('messageInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // Load initial messages
+        loadMessages();
+    </script>
+</body>
+</html>
