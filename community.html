@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Makers Community - Social Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #5865F2;
+            --secondary: #57F287;
+            --accent: #EB459E;
+            --dark: #2C2F33;
+            --darker: #23272A;
+            --light: #FFFFFF;
+            --gray: #99AAB5;
+            --success: #57F287;
+            --warning: #FEE75C;
+            --danger: #ED4245;
+        }
+        
+        body {
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--dark);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--light), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .notification-badge {
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar - Groups/Channels */
+        .sidebar {
+            width: 250px;
+            background: var(--dark);
+            border-right: 2px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-title {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .add-btn {
+            background: var(--success);
+            color: black;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .group-list, .channel-list {
+            list-style: none;
+        }
+        
+        .group-item, .channel-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .group-item:hover, .channel-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .group-item.active, .channel-item.active {
+            background: var(--primary);
+        }
+        
+        .group-icon, .channel-icon {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Main Content - Posts/Messages */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .channel-header {
+            background: var(--dark);
+            padding: 15px 25px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .channel-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .channel-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Posts/Messages Container */
+        .messages-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: var(--darker);
+        }
+        
+        .message {
+            background: var(--dark);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            color: var(--light);
+        }
+        
+        .message-time {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .message-content {
+            margin-left: 50px;
+            line-height: 1.5;
+        }
+        
+        .message-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            margin-left: 50px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            color: var(--light);
+        }
+        
+        .replies {
+            margin-left: 50px;
+            margin-top: 15px;
+            border-left: 2px solid var(--primary);
+            padding-left: 15px;
+        }
+        
+        /* Message Input */
+        .message-input-container {
+            background: var(--dark);
+            padding: 20px;
+            border-top: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .input-toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .tool-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        
+        .tool-btn:hover {
+            background: var(--primary);
+        }
+        
+        .message-input {
+            width: 100%;
+            background: var(--darker);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            color: var(--light);
+            font-size: 1rem;
+            resize: none;
+            min-height: 80px;
+            font-family: inherit;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            float: right;
+            transition: 0.3s;
+        }
+        
+        .send-btn:hover {
+            background: #4752C4;
+        }
+        
+        /* File Upload Preview */
+        .file-preview {
+            background: var(--darker);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-icon {
+            font-size: 2rem;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: bold;
+        }
+        
+        .file-size {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .remove-file {
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        /* GIF Picker */
+        .gif-picker {
+            position: absolute;
+            bottom: 120px;
+            background: var(--dark);
+            border-radius: 10px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
+        }
+        
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .gif-item {
+            width: 100%;
+            height: 80px;
+            background: var(--darker);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .gif-item:hover {
+            background: var(--primary);
+        }
+        
+        /* Online Users */
+        .online-users {
+            width: 250px;
+            background: var(--dark);
+            border-left: 2px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .user-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .user-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        
+        .user-status.online { background: var(--success); }
+        .user-status.idle { background: var(--warning); }
+        .user-status.dnd { background: var(--danger); }
+        .user-status.offline { background: var(--gray); }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .online-users {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <div class="logo-text">
+                <h1>Makers Community</h1>
+                <p>Social Platform for Creators</p>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <div style="position: relative;">
+                <div class="user-avatar">Y</div>
+                <div class="notification-badge">3</div>
+            </div>
+            <div>
+                <div style="font-weight: bold;">You</div>
+                <div style="color: var(--success); font-size: 0.9rem;">● Online</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar - Groups/Channels -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">
+                    GROUPS
+                    <button class="add-btn" onclick="createGroup()">+</button>
+                </div>
+                <ul class="group-list" id="groupList">
+                    <!-- Groups load here -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">
+                    CHANNELS
+                    <button class="add-btn" onclick="createChannel()">+</button>
+                </div>
+                <ul class="channel-list" id="channelList">
+                    <!-- Channels load here -->
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">
+                    DIRECT MESSAGES
+                </div>
+                <ul class="group-list" id="dmList">
+                    <!-- DMs load here -->
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Channel Header -->
+            <div class="channel-header">
+                <div class="channel-icon" style="background: var(--primary);">#</div>
+                <div>
+                    <div class="channel-name" id="currentChannel">general</div>
+                    <div class="channel-desc" id="channelDesc">Welcome to the main community channel</div>
+                </div>
+            </div>
+            
+            <!-- Messages/Posts Container -->
+            <div class="messages-container" id="messagesContainer">
+                <!-- Messages load here -->
+            </div>
+            
+            <!-- Message Input -->
+            <div class="message-input-container">
+                <!-- File Preview -->
+                <div id="filePreview" style="display: none;"></div>
+                
+                <!-- GIF Picker -->
+                <div class="gif-picker" id="gifPicker">
+                    <div style="margin-bottom: 10px; font-weight: bold;">Select GIF</div>
+                    <div class="gif-grid" id="gifGrid">
+                        <!-- GIFs load here -->
+                    </div>
+                </div>
+                
+                <!-- Input Toolbar -->
+                <div class="input-toolbar">
+                    <button class="tool-btn" onclick="uploadFile()" title="Upload File">
+                        📎
+                    </button>
+                    <button class="tool-btn" onclick="showGifPicker()" title="Send GIF">
+                        🎬
+                    </button>
+                    <button class="tool-btn" onclick="addEmoji()" title="Add Emoji">
+                        😀
+                    </button>
+                    <button class="tool-btn" onclick="formatText('bold')" title="Bold">
+                        <b>B</b>
+                    </button>
+                    <button class="tool-btn" onclick="formatText('italic')" title="Italic">
+                        <i>I</i>
+                    </button>
+                    <button class="tool-btn" onclick="formatText('code')" title="Code">
+                        { }
+                    </button>
+                </div>
+                
+                <!-- Message Input -->
+                <textarea 
+                    class="message-input" 
+                    id="messageInput" 
+                    placeholder="Message #general"
+                    onkeydown="if(event.key === 'Enter' && !event.shiftKey) {event.preventDefault(); sendMessage();}"
+                ></textarea>
+                
+                <button class="send-btn" onclick="sendMessage()">
+                    Send Message
+                </button>
+                
+                <!-- Hidden File Input -->
+                <input type="file" id="fileUpload" style="display: none;" onchange="handleFileUpload(this.files)">
+            </div>
+        </div>
+        
+        <!-- Online Users -->
+        <div class="online-users">
+            <div class="sidebar-title">
+                ONLINE — <span id="onlineCount">1</span>
+            </div>
+            <div id="onlineUsersList">
+                <!-- Online users load here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // ====================
+        // DATA & STATE
+        // ====================
+        let currentUser = {
+            id: 1,
+            name: "You",
+            avatar: "Y",
+            status: "online"
+        };
+        
+        let groups = [
+            { id: 1, name: "Gaming", icon: "🎮", active: true },
+            { id: 2, name: "Development", icon: "💻" },
+            { id: 3, name: "Art & Design", icon: "🎨" },
+            { id: 4, name: "Music", icon: "🎵" },
+            { id: 5, name: "Anime", icon: "🌸" }
+        ];
+        
+        let channels = [
+            { id: 1, name: "general", desc: "Welcome to the main community channel", groupId: 1, active: true },
+            { id: 2, name: "memes", desc: "Share funny memes and jokes", groupId: 1 },
+            { id: 3, name: "help", desc: "Get help with your projects", groupId: 2 },
+            { id: 4, name: "showcase", desc: "Show off your creations", groupId: 2 },
+            { id: 5, name: "off-topic", desc: "Talk
