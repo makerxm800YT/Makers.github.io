@@ -1,587 +1,391 @@
+Got it! No commands, no setup. Just pure code you can copy-paste and it works immediately. Here's the **ULTIMATE SINGLE FILE** solution:
+
+## **Super Fast HTML + CSS + JavaScript (No Setup Needed)**
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makers.com | Premium Roblox Development Hub</title>
-    <meta name="description" content="Premium Roblox game development platform with tutorials, Lua scripting, and community resources for 2026">
-    <meta name="keywords" content="roblox, game development, lua, scripting, makers, premium, 2026">
+    <title>Makers.com | Premium 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#f59e0b',
+                        accent: '#ec4899',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px #6366f1' },
+                            '50%': { boxShadow: '0 0 40px #6366f1' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        /* Custom styles that work with Tailwind */
+        .gradient-text {
+            background: linear-gradient(45deg, #fff, #6366f1, #ec4899);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 4s ease infinite;
         }
-
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #f59e0b;
-            --accent: #ec4899;
-            --dark: #0f172a;
-            --darker: #020617;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
-
-        body {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--primary); }
-            50% { box-shadow: 0 0 40px var(--primary); }
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* ===== FLOATING ELEMENTS ===== */
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            filter: blur(40px);
-            opacity: 0.1;
-            z-index: -1;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: 10%;
-            animation-delay: 5s;
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
-        }
-
-        .floating-element:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 10s;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-        }
-
-        /* ===== CONTAINER ===== */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===== HEADER & NAV ===== */
-        header {
-            padding: 30px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-            animation: slideIn 0.8s ease-out;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientShift 3s ease infinite;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.6s;
-        }
-
-        .nav-link:hover::before {
-            left: 100%;
-        }
-
-        .nav-link:hover {
-            background: var(--glass);
-            transform: translateY(-2px);
-        }
-
-        /* ===== PREMIUM BUTTONS ===== */
-        .btn {
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--light);
-            border: 2px solid var(--glass-border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--glass);
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .btn-docs {
-            background: linear-gradient(45deg, var(--secondary), #f97316);
-            color: white;
-            animation: pulse 2s infinite;
-        }
-
-        .btn-docs:hover {
-            animation: none;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            padding: 180px 0 100px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            animation: slideIn 1s ease-out 0.2s both;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--light), var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientShift 4s ease infinite;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--gray);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        /* ===== LINK EDITOR SECTION ===== */
-        .link-editor {
-            padding: 100px 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 30px;
-            margin: 60px 0;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            animation: slideIn 1s ease-out 0.4s both;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: var(--light);
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        .editor-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-        }
-
-        .link-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            animation: slideIn 0.6s ease-out;
-        }
-
-        .link-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--primary);
-            transform: translateX(10px);
-        }
-
-        .link-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .link-icon.youtube { background: linear-gradient(45deg, #ff0000, #cc0000); }
-        .link-icon.discord { background: linear-gradient(45deg, #5865F2, #4752c4); }
-        .link-icon.roblox { background: linear-gradient(45deg, #00a2ff, #0088cc); }
-        .link-icon.github { background: linear-gradient(45deg, #333, #000); }
-        .link-icon.twitter { background: linear-gradient(45deg, #1DA1F2, #0d8bd9); }
-
-        .link-content {
-            flex: 1;
-        }
-
-        .link-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--light);
-        }
-
-        .link-url {
-            color: var(--gray);
-            font-size: 0.9rem;
-            word-break: break-all;
-        }
-
-        .link-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--light);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-icon:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* ===== SOCIAL GRID ===== */
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .social-card {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--light);
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            animation: slideIn 0.8s ease-out;
-        }
-
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: left 0.6s;
-        }
-
-        .social-card:hover::before {
-            left: 100%;
-        }
-
-        .social-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .social-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: var(--transition);
-        }
-
-        .social-card:hover .social-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-
-        .social-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--light);
-        }
-
-        .social-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            padding: 100px 0;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 40px 30px;
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transition: transform 0.6s;
-            transform-origin: left;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--light);
-        }
-
-        .feature-card p {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            padding: 60px 0 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 100px;
-        }
-
-        .footer-content {
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        .copyright {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 30px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-darker via-dark to-gray-900 text-white min-h-screen overflow-x-hidden">
+    
+    <!-- Floating Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s"></div>
+        <div class="absolute top-3/4 left-3/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-lg border-b border-white/10 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                    <i class="fas fa-gamepad text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">
+                    Makers.com
+                </h1>
+            </div>
             
-            .nav
+            <nav class="hidden md:flex gap-6 items-center">
+                <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                <a href="#links" class="hover:text-primary transition-colors">Links</a>
+                <a href="#features" class="hover:text-primary transition-colors">Features</a>
+                <a href="https://docs.makers.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-secondary to-orange-500 px-4 py-2 rounded-full hover:scale-105 transition-transform">
+                    <i class="fas fa-book"></i> Docs
+                </a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button class="md:hidden text-2xl" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden glass-effect mt-4 mx-6 rounded-xl p-4">
+            <div class="flex flex-col gap-4">
+                <a href="#home" class="hover:text-primary transition-colors py-2">Home</a>
+                <a href="#links" class="hover:text-primary transition-colors py-2">Links</a>
+                <a href="#features" class="hover:text-primary transition-colors py-2">Features</a>
+                <a href="https://docs.makers.com" target="_blank" class="flex items-center gap-2 bg-gradient-to-r from-secondary to-orange-500 px-4 py-2 rounded-full">
+                    <i class="fas fa-book"></i> Documentation
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="gradient-text">
+                    Roblox Development
+                </span>
+                <br />
+                <span class="text-3xl md:text-5xl text-gray-300">Reimagined for 2026</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+                Premium platform for game developers. Tutorials, tools, and community for creating amazing Roblox experiences.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="px-8 py-3 bg-gradient-to-r from-primary to-purple-600 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2">
+                    <i class="fas fa-rocket"></i> Get Started
+                </button>
+                <button class="px-8 py-3 border border-white/20 rounded-full font-semibold hover:bg-white/10 transition-colors">
+                    View Tutorials
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Link Editor Section -->
+    <section id="links" class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Your <span class="text-primary">Social Links</span>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mt-2"></div>
+            </h2>
+
+            <div class="max-w-4xl mx-auto glass-effect rounded-2xl p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="linksContainer">
+                    <!-- Links will be loaded here by JavaScript -->
+                </div>
+                
+                <!-- Add New Link Button -->
+                <div class="mt-8 text-center">
+                    <button onclick="addNewLink()" class="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto">
+                        <i class="fas fa-plus"></i> Add New Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Why Choose <span class="text-primary">Makers.com</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Cards -->
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Fast Development</h3>
+                    <p class="text-gray-400">Build games faster with optimized workflows and modern tools.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lua Scripting</h3>
+                    <p class="text-gray-400">Master Roblox Lua with modern techniques and best practices.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Community</h3>
+                    <p class="text-gray-400">Connect with 1000+ developers, share projects, get feedback.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Monetization</h3>
+                    <p class="text-gray-400">Learn to earn from your games with proven strategies.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3D Design</h3>
+                    <p class="text-gray-400">Create stunning game visuals with professional design tools.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-lift hover:border-primary/50 transition-all group">
+                    <div class="text-3xl text-primary mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Documentation</h3>
+                    <p class="text-gray-400">Comprehensive guides, tutorials, and API documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 border-t border-white/10 mt-20">
+        <div class="container mx-auto text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-2xl font-bold gradient-text">
+                    Makers.com
+                </div>
+                <div class="text-gray-400">
+                    © 2026 Makers.com | Premium Roblox Development Platform
+                </div>
+                <div class="flex gap-4 text-2xl">
+                    <a href="https://youtube.com/@YourChannel" target="_blank" class="hover:text-red-500 transition-colors" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://discord.gg/YourInvite" target="_blank" class="hover:text-indigo-500 transition-colors" title="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="https://www.roblox.com/users/YourID/profile" target="_blank" class="hover:text-blue-500 transition-colors" title="Roblox">
+                        <i class="fas fa-gamepad"></i>
+                    </a>
+                    <a href="https://github.com/YourUsername" target="_blank" class="hover:text-gray-300 transition-colors" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://twitter.com/YourHandle" target="_blank" class="hover:text-sky-500 transition-colors" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Your social links data
+        let links = [
+            {
+                id: 1,
+                platform: 'YouTube',
+                url: 'https://youtube.com/@YourChannel',
+                icon: 'fab fa-youtube',
+                color: 'bg-red-500',
+                description: 'Game tutorials & development videos'
+            },
+            {
+                id: 2,
+                platform: 'Discord',
+                url: 'https://discord.gg/YourInvite',
+                icon: 'fab fa-discord',
+                color: 'bg-indigo-500',
+                description: 'Join our developer community'
+            },
+            {
+                id: 3,
+                platform: 'Roblox',
+                url: 'https://www.roblox.com/users/YourID/profile',
+                icon: 'fas fa-gamepad',
+                color: 'bg-blue-500',
+                description: 'Play my games & see my profile'
+            },
+            {
+                id: 4,
+                platform: 'GitHub',
+                url: 'https://github.com/YourUsername',
+                icon: 'fab fa-github',
+                color: 'bg-gray-800',
+                description: 'View my code & projects'
+            },
+            {
+                id: 5,
+                platform: 'Twitter/X',
+                url: 'https://twitter.com/YourHandle',
+                icon: 'fab fa-twitter',
+                color: 'bg-sky-500',
+                description: 'Updates & game dev tips'
+            },
+            {
+                id: 6,
+                platform: 'All Links',
+                url: 'https://beacons.ai/yourname',
+                icon: 'fas fa-link',
+                color: 'bg-pink-500',
+                description: 'Everything in one place'
+            }
+        ];
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Copy link to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            alert('Link copied to clipboard!');
+        }
+
+        // Edit link
+        function editLink(id) {
+            const link = links.find(l => l.id === id);
+            const newUrl = prompt(`Edit ${link.platform} URL:`, link.url);
+            if (newUrl && newUrl !== link.url) {
+                link.url = newUrl;
+                renderLinks();
+            }
+        }
+
+        // Add new link
+        function addNewLink() {
+            const platform = prompt('Enter platform name (e.g., Instagram, TikTok):');
+            if (!platform) return;
+            
+            const url = prompt(`Enter ${platform} URL:`);
+            if (!url) return;
+            
+            const description = prompt(`Enter description for ${platform}:`);
+            
+            const newLink = {
+                id: links.length + 1,
+                platform: platform,
+                url: url,
+                icon: 'fas fa-link',
+                color: 'bg-purple-500',
+                description: description || 'New social link'
+            };
+            
+            links.push(newLink);
+            renderLinks();
+        }
+
+        // Delete link
+        function deleteLink(id) {
+            if (confirm('Are you sure you want to delete this link?')) {
+                links = links.filter(link => link.id !== id);
+                renderLinks();
+            }
+        }
+
+        // Render all links
+        function renderLinks() {
+            const container = document.getElementById('linksContainer');
+            container.innerHTML = '';
+            
+            links.forEach(link => {
+                const linkHTML = `
+                    <div class="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-primary/50 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="${link.color} w-12 h-12 rounded-lg flex items-center justify-center text-xl">
+                                <i class="${link.icon}"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold">${link.platform}</h3>
+                                <p class="text-sm text-gray-400 truncate" title="${link.url}">${link.url}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="copyToClipboard('${link.url}')" class="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors" title="Copy">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                                <button onclick="editLink(${link.id})" class="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <a href="${link.url}" target="_blank" class="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors" title="
